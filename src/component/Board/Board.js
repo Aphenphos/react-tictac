@@ -4,13 +4,16 @@ import Box from '../Box/Box';
 import './Board.css';
 
 export default function Board() {
-  const { board } = useContext(GameContext);
+  const { board, turn } = useContext(GameContext);
 
   return (
-    <div id="board-container">
-      {board.map((box, index) => (
-        <Box key={index} space={index}></Box>
-      ))}
-    </div>
+    <>
+      <h1>its {turn}s turn</h1>
+      <div id="board-container">
+        {board.map((box, index) => (
+          <Box key={index} space={index}></Box>
+        ))}
+      </div>
+    </>
   );
 }

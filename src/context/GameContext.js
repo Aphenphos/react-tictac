@@ -20,9 +20,9 @@ const GameProvider = ({ children }) => {
   ];
 
   if (active === 'false') {
-    window.alert(mess + ' Would you like to start a new game?');
-    setBoard(Array(9).fill(''));
     setActive('true');
+    setBoard(Array(9).fill(''));
+    window.alert(mess + ' Would you like to start a new game?');
   }
 
   async function place(i) {
@@ -67,7 +67,7 @@ const GameProvider = ({ children }) => {
     }
 
     if (checkWin(curTurn)) {
-      setMess(curTurn + 'WINS');
+      setMess(curTurn + ' WINS');
       setActive('false');
     }
   }

@@ -4,11 +4,12 @@ import Box from '../Box/Box';
 import './Board.css';
 
 export default function Board() {
-  const { board, turn } = useContext(GameContext);
+  const { board, mess, reset } = useContext(GameContext);
 
   return (
     <>
-      <h1>its {turn}s turn</h1>
+      <h1>{mess}</h1>
+      <button onClick={reset}>Reset</button>
       <div id="board-container">
         {board.map((box, index) => (
           <Box key={index} space={index}></Box>

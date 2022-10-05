@@ -6,7 +6,7 @@ const GameProvider = ({ children }) => {
   const [board, setBoard] = useState(Array(9).fill(''));
   const [turn, setTurn] = useState('X');
   const [active, setActive] = useState('true');
-  const [mess, setMess] = useState('Turn X');
+  const [mess, setMess] = useState('Xs turn');
 
   const winConditions = [
     [0, 1, 2],
@@ -21,15 +21,16 @@ const GameProvider = ({ children }) => {
 
   if (active === 'false') {
     setActive('true');
-    setBoard(Array(9).fill(''));
-    window.alert(mess + ' Would you like to start a new game?');
+    disableButtons();
   }
 
+  function disableButtons() {
+    setBoard(Array(9).fill(mess));
+  }
   async function place(i) {
     if (board[i] === '') {
       board[i] = turn;
       await checkGame();
-      switchTurn();
     } else {
       window.alert('space occupied');
     }
@@ -38,8 +39,10 @@ const GameProvider = ({ children }) => {
   function switchTurn() {
     if (turn === 'X') {
       setTurn('O');
+      setMess('Os turn');
     } else {
       setTurn('X');
+      setMess('Xs turn');
     }
   }
 
@@ -69,7 +72,15 @@ const GameProvider = ({ children }) => {
     if (checkWin(curTurn)) {
       setMess(curTurn + ' WINS');
       setActive('false');
+    } else {
+      switchTurn();
     }
+  }
+
+  function reset() {
+    setBoard(Array(9).fill(''));
+    setTurn('X');
+    setMess('Xs Turn');
   }
 
   return (
@@ -84,6 +95,7 @@ const GameProvider = ({ children }) => {
         mess,
         setMess,
         place,
+        reset,
       }}
     >
       {children}
